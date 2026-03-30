@@ -1,22 +1,22 @@
 {
   "..\\node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js": {
-    "id": null,
+    "id": "..\\node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js",
     "files": []
   },
   "..\\node_modules\\@react-three\\drei\\web\\FaceLandmarker.js -> @mediapipe/tasks-vision": {
-    "id": null,
+    "id": "..\\node_modules\\@react-three\\drei\\web\\FaceLandmarker.js -> @mediapipe/tasks-vision",
     "files": []
   },
   "app\\page.tsx -> canvas-confetti": {
-    "id": 965,
+    "id": "app\\page.tsx -> canvas-confetti",
     "files": [
-      "static/chunks/965.5006ac47184d2d4b.js"
+      "static/chunks/_app-pages-browser_node_modules_canvas-confetti_dist_confetti_module_mjs.js"
     ]
   },
   "components\\Tribute.tsx -> canvas-confetti": {
-    "id": 965,
+    "id": "components\\Tribute.tsx -> canvas-confetti",
     "files": [
-      "static/chunks/965.5006ac47184d2d4b.js"
+      "static/chunks/_app-pages-browser_node_modules_canvas-confetti_dist_confetti_module_mjs.js"
     ]
   }
 }
