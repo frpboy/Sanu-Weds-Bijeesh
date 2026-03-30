@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💫 Sanu Weds Bijeesh - Project Eternal Scroll
 
-## Getting Started
+> *A cinematic wedding tribute for Sanu & Bijeesh — An immersive, 3D celestial journey that transcends traditional wedding websites.*
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 About This Project
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This is a beautifully crafted digital wedding invitation created with love and turned into a stunning web experience. What started as a fun project for a friend's wedding has evolved into an immersive, interactive website celebrating the union of two families.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### The Story
+Sanu and Bijeesh are coming together through an arranged marriage on **April 8th, 2026**, following their engagement in **April 2025**. This website transforms their journey into an interactive cinematic experience that guests can explore before the big day.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Key Features
 
-To learn more about Next.js, take a look at the following resources:
+### 🌌 **The Star Tunnel** 
+A dynamic 3D starfield that responds to user scroll, creating a "Warp Speed" effect. The background seamlessly transitions as you journey through the experience.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🎬 **Horizontal Storytelling**
+A 500vw-wide horizontal timeline ("Film Strip") using GSAP ScrollTrigger that presents the couple's story as a cinematic journey with glassmorphism memory cards and parallax effects.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🎆 **Interactive Nebula**
+The climax of the experience features a swirling 3D nebula that explodes into gold heart particles when you interact with it—a truly magical moment.
 
-## Deploy on Vercel
+### 🎙️ **Audio & Entry Gate**
+A full-screen interactive entry point with cinematic soundtrack integration. Users must interact to unlock the experience and begin their journey.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 💝 **Send Blessings**
+A concluding tribute section where guests can send their wishes with a personal message and interactive "Send Blessings" button featuring confetti animation and WhatsApp integration.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Why? |
+|:------|:-----------|:-----|
+| **Framework** | **Next.js 15 (App Router)** | Best-in-class performance, SEO, and image optimization |
+| **3D Engine** | **React Three Fiber (R3F) + Drei** | Modern, declarative way to handle Three.js in React |
+| **3D Helpers** | **@react-three/drei** | Essential shortcuts for 3D text, environments, and loaders |
+| **Animation** | **GSAP + ScrollTrigger** | Syncs the 3D world with user scroll perfectly |
+| **Post-Processing** | **@react-three/postprocessing** | Cinematic Bloom, Depth of Field, and Vignette effects |
+| **Styling** | **Tailwind CSS** | Rapid UI development for elegant overlays |
+| **Audio** | **Howler.js** | Reliable audio management for cinematic soundtrack |
+| **Interaction** | **Framer Motion + Canvas-Confetti** | Smooth UI transitions and celebratory particles |
+| **Database** | **Neon (Serverless Postgres)** | For storing guest wishes and interactions |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** 18+ (preferably 20 LTS)
+- **npm**, **yarn**, **pnpm**, or **bun** as your package manager
+
