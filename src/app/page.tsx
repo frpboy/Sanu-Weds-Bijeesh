@@ -114,48 +114,50 @@ export default function Home() {
   }, [showContent]);
 
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-black overflow-x-hidden">
-      {!started && <IntroGate onEnter={handleEnter} />}
+    <main className="relative bg-black w-full min-h-screen overflow-x-hidden">
+      {/* 1. THE 3D BACKGROUND (Fixed behind everything) */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Scene currentTime={currentTime} isWarpSpeed={isWarpSpeed} />
+      </div>
 
-      {started && (
-        <>
-          <Scene currentTime={currentTime} isWarpSpeed={isWarpSpeed} />
-
-          <div className={`relative z-10 w-full transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-            <section className="h-screen flex flex-col items-center justify-center text-center p-6 bg-transparent">
-              <div className="fade-content opacity-0 translate-y-10">
-                <p className="text-[#d4af37] tracking-[0.5em] uppercase text-xs mb-6 font-montserrat">
-                  A New Chapter Begins
-                </p>
-                <h1 className="text-5xl md:text-8xl lg:text-9xl font-cinzel text-white mb-12 opacity-90 italic drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
-                  Sanu & Bijeesh
-                </h1>
-                <Countdown />
-              </div>
-
-              <div className="fade-content opacity-0 translate-y-10 absolute bottom-10 animate-bounce text-white/30">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </div>
-            </section>
-
+      {!started ? (
+        <IntroGate onEnter={handleEnter} />
+      ) : (
+        /* 2. THE CONTENT LAYER (Scrollable, z-10) */
+        <div className="relative z-10 w-full">
+          
+          {/* Hero Section */}
+          <section className="h-screen w-full flex flex-col items-center justify-center text-center p-6 snap-start">
             <div className="fade-content opacity-0 translate-y-10">
-              <StorySection />
-            </div>
-
-            <div className="fade-content opacity-0 translate-y-10">
-              <Tribute />
-            </div>
-
-            <footer className="py-12 text-center text-white/30 border-t border-white/5 bg-black">
-              <p className="text-xs tracking-widest uppercase mb-4 font-montserrat">
-                as a gift from <a href="https://github.com/frpboy" target="_blank" className="text-[#d4af37] hover:text-white underline transition-colors">Rahul</a> with love to you guys
+              <p className="text-[#d4af37] tracking-[0.5em] uppercase text-xs mb-6 font-montserrat">
+                A New Chapter Begins
               </p>
-              <p className="text-[10px] uppercase tracking-[0.4em] font-montserrat">&copy; 2026 Sanu & Bijeesh</p>
-            </footer>
+              <h1 className="text-5xl md:text-8xl lg:text-9xl font-cinzel text-white mb-12 opacity-90 italic drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+                Sanu & Bijeesh
+              </h1>
+              <Countdown />
+            </div>
+
+            <div className="fade-content opacity-0 translate-y-10 mt-20 animate-bounce text-white/50 tracking-widest text-xs">
+              SCROLL TO EXPLORE THE JOURNEY ↓
+            </div>
+          </section>
+
+          {/* Story Section */}
+          <div className="fade-content opacity-0 translate-y-10">
+            <StorySection />
           </div>
-        </>
+
+          {/* Tribute Section */}
+          <div className="fade-content opacity-0 translate-y-10">
+            <Tribute />
+          </div>
+
+          {/* Footer */}
+          <footer className="py-10 text-center text-white/20 text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-sm">
+            April 8, 2026 • Forever
+          </footer>
+        </div>
       )}
     </main>
   );
