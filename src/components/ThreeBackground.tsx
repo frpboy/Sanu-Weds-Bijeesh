@@ -22,6 +22,19 @@ export default function ThreeBackground() {
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
+    // Soft circular texture so particles render as round glowing dots
+    const canvas2d = document.createElement("canvas");
+    canvas2d.width = 64;
+    canvas2d.height = 64;
+    const ctx = canvas2d.getContext("2d")!;
+    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, "rgba(255,255,255,1)");
+    grad.addColorStop(0.4, "rgba(255,255,255,0.6)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 64, 64);
+    const particleTexture = new THREE.CanvasTexture(canvas2d);
+
     // Gold particle field (1500 points)
     const particlesGeometry = new THREE.BufferGeometry();
     const posArray = new Float32Array(1500 * 3);
@@ -34,11 +47,14 @@ export default function ThreeBackground() {
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.015,
+      size: 0.06,
+      map: particleTexture,
       color: "#d4af37",
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      sizeAttenuation: true,
     });
 
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -123,6 +139,7 @@ export default function ThreeBackground() {
       window.removeEventListener("resize", onResize);
       particlesGeometry.dispose();
       particlesMaterial.dispose();
+      particleTexture.dispose();
       shapes.forEach((s) => {
         s.geometry.dispose();
         (s.material as THREE.Material).dispose();

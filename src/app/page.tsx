@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import Journey from "@/components/Journey";
 import Events from "@/components/Events";
-import Gallery from "@/components/Gallery";
+import PhotoCarousel from "@/components/PhotoCarousel";
 import Wishes from "@/components/Wishes";
 import Footer from "@/components/Footer";
 import MusicToggle from "@/components/MusicToggle";
@@ -54,7 +54,7 @@ export default function Home() {
       <main>
         <Journey />
         <Events />
-        <Gallery />
+        <PhotoCarousel />
         <Wishes />
       </main>
 

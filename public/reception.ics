@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sanu Weds Bijeesh//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20260408T110000Z
+DTEND:20260408T140000Z
+SUMMARY:Sanu and Bijeesh's Wedding Reception
+DESCRIPTION:Wedding Reception at River View Auditorium\n4:30 PM – 7:30 PM IST\n\nhttps://maps.app.goo.gl/tpTioGi2prXbeeRu6
+LOCATION:River View Auditorium\, Chundambatta Post\, Nattyamangalam\, near Kattuppara\, Kerala 679337
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR

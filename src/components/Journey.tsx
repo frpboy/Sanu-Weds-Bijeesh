@@ -23,7 +23,7 @@ export default function Journey() {
             <div className="timeline-content">
               <i className="fas fa-ring icon" />
               <h3>The Engagement</h3>
-              <span className="date-label">April 2025</span>
+              <span className="date-label">April 19th, 2025</span>
               <p>
                 Surrounded by loved ones, we officially embarked on this journey
                 together. A day filled with promises and the beginning of a
