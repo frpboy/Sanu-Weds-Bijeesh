@@ -1,7 +1,7 @@
 "use client";
 
 const SHARE_TEXT = encodeURIComponent(
-  "You're invited! 🎊 Sanu & Bijeesh are getting married on April 8th, 2026 in Mannarmala, Kerala. Save the date → https://sanu-weds-bijeesh.vercel.app"
+  "You're invited! Sanu & Bijeesh are getting married on April 8th, 2026 in Mannarmala, Kerala. Save the date → https://sanu-weds-bijeesh.vercel.app"
 );
 const WA_URL = `https://wa.me/?text=${SHARE_TEXT}`;
 
