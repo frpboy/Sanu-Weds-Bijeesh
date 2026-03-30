@@ -25,7 +25,7 @@ export function useAudio(src: string) {
   useEffect(() => {
     const audio = new Howl({
       src: [src],
-      html5: true, // Required for large FLAC files
+      html5: true, // Required for large files
       preload: true,
       volume: 0, // Start silent, we'll fade in
       onload: () => {

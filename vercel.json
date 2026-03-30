@@ -1,9 +1,9 @@
 {
   "headers": [
     {
-      "source": "/(.*).flac",
+      "source": "/(.*).mp3",
       "headers": [
-        { "key": "Content-Type", "value": "audio/flac" }
+        { "key": "Content-Type", "value": "audio/mpeg" }
       ]
     }
   ]

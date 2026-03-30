@@ -19,24 +19,25 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "Sanu & Bijeesh - Project Eternal Scroll",
-  description: "A cinematic wedding tribute celebrating the union of Sanu and Bijeesh.",
-  openGraph: {
-    title: "Sanu & Bijeesh - The Next Chapter",
-    description: "Witness the celestial journey of Sanu and Bijeesh.",
-    images: ["/og-image.jpg"],
-  },
+  title: "Sanu & Bijeesh — A Grand Union",
+  description:
+    "Join us in celebrating the wedding of Sanu & Bijeesh on April 8th, 2026.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
-        className={`${montserrat.variable} ${cinzel.variable} ${greatVibes.variable} antialiased`}
+        className={`${montserrat.variable} ${cinzel.variable} ${greatVibes.variable}`}
       >
         {children}
       </body>
