@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 interface Wish {
   name: string;
   message: string;
+  attending: boolean;
+  headcount: number;
   created_at: string;
 }
 
@@ -11,43 +13,52 @@ export default function Wishes() {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">(
-    "idle"
-  );
+  const [attending, setAttending] = useState(true);
+  const [headcount, setHeadcount] = useState(1);
+  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [fetching, setFetching] = useState(true);
 
-  // Load all wishes on mount
   useEffect(() => {
     fetch("/api/wishes")
       .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setWishes(data);
-      })
+      .then((data) => { if (Array.isArray(data)) setWishes(data); })
       .catch(console.error)
       .finally(() => setFetching(false));
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!name.trim()) return;
     setStatus("loading");
 
     try {
       const res = await fetch("/api/wishes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), message: message.trim() }),
+        body: JSON.stringify({
+          name: name.trim(),
+          message: message.trim(),
+          attending,
+          headcount,
+        }),
       });
 
       if (!res.ok) throw new Error("Failed");
 
-      // Prepend new wish optimistically
       setWishes((prev) => [
-        { name: name.trim(), message: message.trim(), created_at: new Date().toISOString() },
+        {
+          name: name.trim(),
+          message: message.trim(),
+          attending,
+          headcount,
+          created_at: new Date().toISOString(),
+        },
         ...prev,
       ]);
       setName("");
       setMessage("");
+      setAttending(true);
+      setHeadcount(1);
       setStatus("sent");
       setTimeout(() => setStatus("idle"), 3000);
     } catch {
@@ -59,7 +70,7 @@ export default function Wishes() {
   return (
     <section id="wishes" className="section alt-bg">
       <div className="container">
-        <h2 className="section-title">Blessings &amp; Wishes</h2>
+        <h2 className="section-title">RSVP &amp; Wishes</h2>
 
         <div className="wishes-container">
           {/* Form */}
@@ -72,21 +83,65 @@ export default function Wishes() {
                   id="guest-name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="John Doe"
+                  placeholder="Your full name"
                   required
                   disabled={status === "loading"}
                 />
               </div>
 
+              {/* Attending toggle */}
               <div className="form-group">
-                <label htmlFor="guest-message">Your Blessing</label>
+                <label>Will you be attending?</label>
+                <div className="rsvp-toggle">
+                  <button
+                    type="button"
+                    className={`rsvp-btn${attending ? " active" : ""}`}
+                    onClick={() => setAttending(true)}
+                  >
+                    <i className="fas fa-check" /> Joyfully Accepts
+                  </button>
+                  <button
+                    type="button"
+                    className={`rsvp-btn${!attending ? " active decline" : ""}`}
+                    onClick={() => setAttending(false)}
+                  >
+                    <i className="fas fa-times" /> Regretfully Declines
+                  </button>
+                </div>
+              </div>
+
+              {/* Headcount — only when attending */}
+              {attending && (
+                <div className="form-group">
+                  <label htmlFor="headcount">Number of Guests</label>
+                  <div className="headcount-wrap">
+                    <button
+                      type="button"
+                      className="headcount-btn"
+                      onClick={() => setHeadcount((n) => Math.max(1, n - 1))}
+                    >
+                      <i className="fas fa-minus" />
+                    </button>
+                    <span className="headcount-value">{headcount}</span>
+                    <button
+                      type="button"
+                      className="headcount-btn"
+                      onClick={() => setHeadcount((n) => Math.min(20, n + 1))}
+                    >
+                      <i className="fas fa-plus" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="form-group">
+                <label htmlFor="guest-message">Blessing / Message <span className="label-optional">(optional)</span></label>
                 <textarea
                   id="guest-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={5}
-                  placeholder="Write your heartfelt message here..."
-                  required
+                  rows={4}
+                  placeholder="Write your heartfelt wishes…"
                   disabled={status === "loading"}
                 />
               </div>
@@ -96,18 +151,10 @@ export default function Wishes() {
                 className={`submit-btn${status === "sent" ? " sent" : ""}`}
                 disabled={status === "loading"}
               >
-                {status === "loading" && (
-                  <>Sending… <i className="fas fa-spinner fa-spin" /></>
-                )}
-                {status === "sent" && (
-                  <>Sent! <i className="fas fa-check" /></>
-                )}
-                {status === "error" && (
-                  <>Failed — try again <i className="fas fa-exclamation" /></>
-                )}
-                {status === "idle" && (
-                  <>Send Wishes <i className="fas fa-paper-plane" /></>
-                )}
+                {status === "loading" && (<><i className="fas fa-spinner fa-spin" /> Sending…</>)}
+                {status === "sent"    && (<><i className="fas fa-check" /> Sent!</>)}
+                {status === "error"   && (<><i className="fas fa-exclamation" /> Failed — try again</>)}
+                {status === "idle"    && (<><i className="fas fa-paper-plane" /> Send RSVP</>)}
               </button>
             </form>
           </div>
@@ -115,20 +162,30 @@ export default function Wishes() {
           {/* Wish display */}
           <div className="wishes-display" id="wishes-list">
             {fetching && (
-              <p style={{ color: "#999", textAlign: "center" }}>
-                Loading wishes…
-              </p>
+              <p style={{ color: "#999", textAlign: "center" }}>Loading…</p>
             )}
-
             {!fetching && wishes.length === 0 && (
               <p style={{ color: "#999", textAlign: "center" }}>
-                Be the first to leave a blessing!
+                Be the first to RSVP!
               </p>
             )}
-
             {wishes.map((wish, i) => (
               <div key={i} className="wish-item animate-fade-in">
-                <p className="wish-text">&ldquo;{wish.message}&rdquo;</p>
+                <div className="wish-rsvp-badge">
+                  {wish.attending ? (
+                    <span className="badge-attending">
+                      <i className="fas fa-check-circle" /> Attending
+                      {wish.headcount > 1 && ` · ${wish.headcount} guests`}
+                    </span>
+                  ) : (
+                    <span className="badge-decline">
+                      <i className="fas fa-times-circle" /> Unable to attend
+                    </span>
+                  )}
+                </div>
+                {wish.message && (
+                  <p className="wish-text">&ldquo;{wish.message}&rdquo;</p>
+                )}
                 <span className="wish-author">— {wish.name}</span>
               </div>
             ))}

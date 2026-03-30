@@ -18,10 +18,28 @@ const greatVibes = Great_Vibes({
   variable: "--font-great-vibes",
 });
 
+const BASE_URL = "https://sanu-weds-bijeesh.vercel.app";
+
 export const metadata: Metadata = {
   title: "Sanu & Bijeesh — A Grand Union",
   description:
-    "Join us in celebrating the wedding of Sanu & Bijeesh on April 8th, 2026.",
+    "You're invited to the wedding of Sanu & Bijeesh on April 8th, 2026 in Mannarmala, Kerala.",
+  icons: { icon: "/favicon.svg" },
+  openGraph: {
+    title: "Sanu & Bijeesh — A Grand Union",
+    description:
+      "You're invited to the wedding of Sanu & Bijeesh on April 8th, 2026 in Mannarmala, Kerala.",
+    url: BASE_URL,
+    siteName: "Sanu Weds Bijeesh",
+    images: [{ url: `${BASE_URL}/api/og`, width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sanu & Bijeesh — A Grand Union",
+    description: "Wedding · April 8th, 2026 · Mannarmala, Kerala",
+    images: [`${BASE_URL}/api/og`],
+  },
 };
 
 export default function RootLayout({

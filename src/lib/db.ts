@@ -7,15 +7,17 @@ export function getDb() {
   return neon(url);
 }
 
-/** Creates the wishes table if it doesn't already exist. */
+/** Creates the wishes table and migrates new columns if needed. */
 export async function ensureTable() {
   const sql = getDb();
   await sql`
     CREATE TABLE IF NOT EXISTS wishes (
       id         SERIAL PRIMARY KEY,
       name       TEXT        NOT NULL,
-      message    TEXT        NOT NULL,
+      message    TEXT        NOT NULL DEFAULT '',
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+  await sql`ALTER TABLE wishes ADD COLUMN IF NOT EXISTS attending  BOOLEAN NOT NULL DEFAULT true`;
+  await sql`ALTER TABLE wishes ADD COLUMN IF NOT EXISTS headcount  INT     NOT NULL DEFAULT 1`;
 }

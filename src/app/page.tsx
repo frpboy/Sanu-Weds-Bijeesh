@@ -9,6 +9,8 @@ import Wishes from "@/components/Wishes";
 import Footer from "@/components/Footer";
 import MusicToggle from "@/components/MusicToggle";
 import ScrollAnimations from "@/components/ScrollAnimations";
+import ScrollToTop from "@/components/ScrollToTop";
+import SaveTheDateModal from "@/components/SaveTheDateModal";
 
 // Three.js uses browser globals — skip SSR
 const ThreeBackground = dynamic(
@@ -62,6 +64,12 @@ export default function Home() {
 
       {/* Floating music toggle */}
       <MusicToggle />
+
+      {/* Scroll-to-top (appears after hero) */}
+      <ScrollToTop />
+
+      {/* First-visit Save the Date modal */}
+      <SaveTheDateModal />
     </>
   );
 }

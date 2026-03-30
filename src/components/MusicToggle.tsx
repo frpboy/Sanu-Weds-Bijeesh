@@ -11,29 +11,41 @@ export default function MusicToggle() {
     audio.volume = 0.4;
     audioRef.current = audio;
 
-    // Attempt autoplay immediately
-    audio
-      .play()
-      .then(() => setPlaying(true))
-      .catch(() => {
-        // Browser blocked autoplay — start on first user interaction
-        const startOnInteraction = () => {
-          audio
-            .play()
-            .then(() => setPlaying(true))
-            .catch(() => {});
-          document.removeEventListener("click", startOnInteraction);
-          document.removeEventListener("touchstart", startOnInteraction);
-          document.removeEventListener("keydown", startOnInteraction);
-        };
-        document.addEventListener("click", startOnInteraction, { once: true });
-        document.addEventListener("touchstart", startOnInteraction, { once: true });
-        document.addEventListener("keydown", startOnInteraction, { once: true });
-      });
+    let started = false;
+
+    function tryPlay() {
+      if (started) return;
+      audio
+        .play()
+        .then(() => {
+          started = true;
+          setPlaying(true);
+          document.removeEventListener("click", tryPlay);
+          document.removeEventListener("touchstart", tryPlay);
+          document.removeEventListener("touchend", tryPlay);
+          document.removeEventListener("keydown", tryPlay);
+        })
+        .catch(() => {
+          // Still blocked — keep listeners alive and retry on next interaction
+        });
+    }
+
+    // Attempt immediately (works on desktop or permissive browsers)
+    tryPlay();
+
+    // Keep retrying on every interaction until it starts — needed for iOS Safari
+    document.addEventListener("click", tryPlay);
+    document.addEventListener("touchstart", tryPlay);
+    document.addEventListener("touchend", tryPlay);
+    document.addEventListener("keydown", tryPlay);
 
     return () => {
       audio.pause();
       audio.src = "";
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("touchstart", tryPlay);
+      document.removeEventListener("touchend", tryPlay);
+      document.removeEventListener("keydown", tryPlay);
     };
   }, []);
 
@@ -43,7 +55,7 @@ export default function MusicToggle() {
     if (playing) {
       audio.pause();
     } else {
-      audio.play();
+      audio.play().catch(() => {});
     }
     setPlaying((p) => !p);
   };

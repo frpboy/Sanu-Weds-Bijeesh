@@ -6,7 +6,7 @@ export async function GET() {
     await ensureTable();
     const sql = getDb();
     const rows = await sql`
-      SELECT name, message, created_at
+      SELECT name, message, attending, headcount, created_at
       FROM wishes
       ORDER BY created_at DESC
     `;
@@ -25,10 +25,12 @@ export async function POST(request: Request) {
     const body = await request.json();
     const name = (body.name ?? "").trim();
     const message = (body.message ?? "").trim();
+    const attending = body.attending !== false; // default true
+    const headcount = Math.max(1, Math.min(20, parseInt(body.headcount) || 1));
 
-    if (!name || !message) {
+    if (!name) {
       return NextResponse.json(
-        { error: "Name and message are required." },
+        { error: "Name is required." },
         { status: 400 }
       );
     }
@@ -36,8 +38,8 @@ export async function POST(request: Request) {
     await ensureTable();
     const sql = getDb();
     await sql`
-      INSERT INTO wishes (name, message)
-      VALUES (${name}, ${message})
+      INSERT INTO wishes (name, message, attending, headcount)
+      VALUES (${name}, ${message}, ${attending}, ${headcount})
     `;
 
     return NextResponse.json({ ok: true }, { status: 201 });
