@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanu & Bijeesh - A Grand Union</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 3D Canvas Container -->
+    <div id="threejs-container"></div>
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="loader-text">S & B</h1>
+            <div class="heart-loader"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="animate-fade-in">Save the Date</h2>
+            <h1 class="couple-names animate-slide-up">Sanu <span class="ampersand">&</span> Bijeesh</h1>
+            <p class="date animate-fade-in">April 8th, 2026</p>
+            <div class="countdown" id="countdown">
+                <div class="time-block">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-block">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-block">
+                    <span id="minutes">00</span>
+                    <label>Mins</label>
+                </div>
+                <div class="time-block">
+                    <span id="seconds">00</span>
+                    <label>Secs</label>
+                </div>
+            </div>
+            <a href="#our-journey" class="scroll-btn"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Our Journey Section -->
+        <section id="our-journey" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <i class="fas fa-handshake-angle icon"></i>
+                            <h3>A Family Decision</h3>
+                            <p>Our story began when our families came together with a shared vision of a beautiful future for us. A union built on respect and family values.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <i class="fas fa-ring icon"></i>
+                            <h3>The Engagement</h3>
+                            <span class="date-label">April 2025</span>
+                            <p>Surrounded by loved ones, we officially embarked on this journey together. A day filled with promises and the beginning of a lifelong bond.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <i class="fas fa-heart icon"></i>
+                            <h3>The Big Day</h3>
+                            <span class="date-label">April 8th, 2026</span>
+                            <p>We invite you to witness the culmination of this journey as we unite in marriage and start our lives together as one.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Events -->
+        <section id="events" class="section alt-bg">
+            <div class="container">
+                <h2 class="section-title">Wedding Events</h2>
+                <div class="event-cards">
+                    <div class="event-card">
+                        <div class="event-image muhurtham-img"></div>
+                        <div class="event-info">
+                            <h3>Wedding Ceremony</h3>
+                            <p><i class="far fa-calendar-alt"></i> April 8th, 2026</p>
+                            <p><i class="far fa-clock"></i> 10:30 AM - 12:30 PM</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Grand Plaza Hall, Kerala</p>
+                            <a href="#" class="btn">View Map</a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image reception-img"></div>
+                        <div class="event-info">
+                            <h3>Reception</h3>
+                            <p><i class="far fa-calendar-alt"></i> April 8th, 2026</p>
+                            <p><i class="far fa-clock"></i> 6:00 PM onwards</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Royal Orchid Resort</p>
+                            <a href="#" class="btn">View Map</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery -->
+        <section id="gallery" class="section">
+            <div class="container">
+                <h2 class="section-title">Moments Captured</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="placeholder-img"><span>Family Moments</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder-img"><span>The Engagement</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder-img"><span>Shared Joy</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder-img"><span>Traditional Union</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guest Wishes -->
+        <section id="wishes" class="section alt-bg">
+            <div class="container">
+                <h2 class="section-title">Blessings & Wishes</h2>
+                <div class="wishes-container">
+                    <div class="wishes-form">
+                        <form id="guest-wish-form">
+                            <div class="form-group">
+                                <label for="guest-name">Your Name</label>
+                                <input type="text" id="guest-name" name="name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guest-message">Your Blessing</label>
+                                <textarea id="guest-message" name="message" rows="5" placeholder="Write your heartfelt message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Wishes <i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                    <div class="wishes-display" id="wishes-list">
+                        <!-- Wishes will appear here -->
+                        <div class="wish-item">
+                            <p class="wish-text">"Wishing you both a lifetime of happiness and prosperity! Can't wait for the big day!"</p>
+                            <span class="wish-author">- Rahul & Family</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <h2 class="couple-names">S <span class="ampersand">&</span> B</h2>
+            <p>We are grateful for your presence in our lives.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+            <div class="gift-message">
+                <p>as a gift from <a href="https://github.com/frpboy" target="_blank" class="rahul-link">Rahul</a> with love to you guys</p>
+            </div>
+            <p class="copyright">&copy; 2026 Sanu & Bijeesh. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

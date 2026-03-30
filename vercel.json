@@ -1,0 +1,10 @@
+{
+  "headers": [
+    {
+      "source": "/(.*).flac",
+      "headers": [
+        { "key": "Content-Type", "value": "audio/flac" }
+      ]
+    }
+  ]
+}
