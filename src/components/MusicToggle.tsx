@@ -58,6 +58,7 @@ export default function MusicToggle() {
   }, []);
 
   const toggle = () => {
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) navigator.vibrate(10);
     const audio = audioRef.current;
     if (!audio) return;
     if (playing) {
@@ -65,7 +66,6 @@ export default function MusicToggle() {
       setPlaying(false);
     } else {
       audio.play().then(() => {
-        // Mark as started so the document listeners don't re-fire
         startedRef.current = true;
         setPlaying(true);
       }).catch(() => {});

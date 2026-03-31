@@ -4,7 +4,8 @@
       "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_N7W3yXgczdSv@ep-long-tree-a1kz31fe-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" node -e \":*)",
       "Bash(vercel env:*)",
       "Bash(vercel deploy:*)",
-      "Bash(npx vercel:*)"
+      "Bash(npx vercel:*)",
+      "Bash(node scripts/generate-blur.mjs)"
     ]
   }
 }

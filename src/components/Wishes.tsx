@@ -159,6 +159,22 @@ export default function Wishes() {
             </form>
           </div>
 
+          {/* RSVP summary */}
+          {!fetching && wishes.length > 0 && (() => {
+            const attending = wishes.filter((w) => w.attending !== false);
+            const guests = attending.reduce((s, w) => s + (w.headcount || 1), 0);
+            return (
+              <div className="rsvp-summary">
+                <i className="fas fa-users" />
+                <span>
+                  <strong>{attending.length}</strong> {attending.length === 1 ? "person" : "people"} attending
+                  &nbsp;&middot;&nbsp;
+                  <strong>{guests}</strong> total {guests === 1 ? "guest" : "guests"}
+                </span>
+              </div>
+            );
+          })()}
+
           {/* Wish display */}
           <div className="wishes-display" id="wishes-list">
             {fetching && (

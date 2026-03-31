@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Cinzel, Great_Vibes } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -58,6 +59,7 @@ export default function RootLayout({
         className={`${montserrat.variable} ${cinzel.variable} ${greatVibes.variable}`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
