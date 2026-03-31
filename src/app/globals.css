@@ -478,6 +478,193 @@ h1, h2, h3 {
   padding: 8px 12px;
 }
 
+/* ─── Photo Reveal (curtain) ─────────────────────────────────────────────── */
+.curtain-stage {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  aspect-ratio: 2 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border-gold);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+  background: #0d0500;
+}
+
+/* Carousel underneath — fills stage exactly */
+.curtain-carousel-under {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.curtain-carousel-under .carousel-wrap {
+  max-width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+/* ── Curtain panels ── */
+.curtain-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 51%; /* slight overlap so no gap before animation */
+  z-index: 10;
+  /* Gold theatrical fabric: vertical fold lines */
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(212,175,55,0.18) 0px,
+      transparent          2px,
+      transparent         18px,
+      rgba(212,175,55,0.08) 20px,
+      transparent         22px,
+      transparent         38px
+    ),
+    linear-gradient(180deg, #1f0a00 0%, #0d0400 60%, #1f0a00 100%);
+  transition: transform 1.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.curtain-panel-left  { left: 0;  border-right: 1px solid rgba(212,175,55,0.4); }
+.curtain-panel-right { right: 0; border-left:  1px solid rgba(212,175,55,0.4); }
+
+.curtain-panel-left.curtain-panel-open  { transform: translateX(-100%); }
+.curtain-panel-right.curtain-panel-open { transform: translateX(100%); }
+
+/* Gold sheen — diagonal highlight to simulate light on fabric */
+.curtain-sheen {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 30%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212,175,55,0.12) 60%,
+    rgba(212,175,55,0.22) 100%
+  );
+}
+.curtain-sheen-r {
+  left: 0; right: auto;
+  background: linear-gradient(
+    90deg,
+    rgba(212,175,55,0.22) 0%,
+    rgba(212,175,55,0.12) 40%,
+    transparent 100%
+  );
+}
+
+/* ── Curtain ropes (decorative vertical lines at inner edges) ── */
+.curtain-rope {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212,175,55,0.5) 10%,
+    rgba(212,175,55,0.8) 50%,
+    rgba(212,175,55,0.5) 90%,
+    transparent 100%
+  );
+  z-index: 20;
+}
+.curtain-rope-l { left: calc(50% - 1px); }
+.curtain-rope-r { right: calc(50% - 1px); display: none; }
+
+/* ── Center content ── */
+.curtain-content {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.curtain-icon {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 14px;
+  filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
+}
+
+.curtain-eyebrow {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.curtain-divider {
+  width: 48px;
+  height: 1px;
+  background: rgba(212,175,55,0.5);
+  margin: 0 auto 14px;
+}
+
+.curtain-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.curtain-cd {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.curtain-cd-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-width: 54px;
+}
+
+.curtain-cd-block span {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+.curtain-cd-block small {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+.curtain-reveal-date {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.curtain-reveal-date i { color: rgba(212,175,55,0.4); }
+
 /* ─── Photo Carousel ─────────────────────────────────────────────────────── */
 .carousel-wrap {
   position: relative;

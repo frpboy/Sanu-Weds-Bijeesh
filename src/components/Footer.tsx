@@ -27,15 +27,6 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="social-links">
-          <a href="#" aria-label="Instagram">
-            <i className="fab fa-instagram" />
-          </a>
-          <a href="#" aria-label="Facebook">
-            <i className="fab fa-facebook" />
-          </a>
-        </div>
-
         <div className="gift-message">
           <p>
             as a gift from{" "}
