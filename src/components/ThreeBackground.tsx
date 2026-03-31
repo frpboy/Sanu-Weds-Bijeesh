@@ -28,9 +28,9 @@ export default function ThreeBackground() {
     canvas2d.height = 64;
     const ctx = canvas2d.getContext("2d")!;
     const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, "rgba(255,255,255,1)");
-    grad.addColorStop(0.4, "rgba(255,255,255,0.6)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
+    grad.addColorStop(0, "rgba(255, 223, 80, 1)");
+    grad.addColorStop(0.4, "rgba(212, 175, 55, 0.6)");
+    grad.addColorStop(1, "rgba(212, 175, 55, 0)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 64, 64);
     const particleTexture = new THREE.CanvasTexture(canvas2d);
@@ -60,8 +60,8 @@ export default function ThreeBackground() {
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
-    // Floating wireframe shapes
-    const shapeColors = ["#d4af37", "#8b0000", "#ffffff"];
+    // Floating wireframe shapes — all gold
+    const shapeColors = ["#d4af37", "#e8c547", "#f0d060"];
     const shapes: THREE.Mesh[] = [];
 
     for (let i = 0; i < 20; i++) {

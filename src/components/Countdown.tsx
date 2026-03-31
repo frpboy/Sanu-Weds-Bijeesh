@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const WEDDING_DATE = new Date("April 8, 2026 10:30:00").getTime();
+// 10:30 AM IST = 05:00 UTC (IST is UTC+5:30)
+const WEDDING_DATE = new Date("2026-04-08T05:00:00Z").getTime();
 
 export default function Countdown() {
   const [isClient, setIsClient] = useState(false);

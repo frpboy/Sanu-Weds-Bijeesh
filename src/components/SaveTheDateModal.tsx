@@ -13,6 +13,10 @@ export default function SaveTheDateModal() {
 
   function dismiss() {
     localStorage.setItem("sanu-bijeesh-std", "1");
+    // Trigger music directly here — this runs inside the button's event
+    // handler, so Android Chrome grants it the user-gesture trust needed
+    // to call audio.play() without being blocked.
+    (window as Window & { __startMusic?: () => void }).__startMusic?.();
     setOpen(false);
   }
 

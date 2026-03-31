@@ -11,6 +11,7 @@ import MusicToggle from "@/components/MusicToggle";
 import ScrollAnimations from "@/components/ScrollAnimations";
 import ScrollToTop from "@/components/ScrollToTop";
 import SaveTheDateModal from "@/components/SaveTheDateModal";
+import MouseTrail from "@/components/MouseTrail";
 
 // Three.js uses browser globals — skip SSR
 const ThreeBackground = dynamic(
@@ -70,6 +71,9 @@ export default function Home() {
 
       {/* First-visit Save the Date modal */}
       <SaveTheDateModal />
+
+      {/* Gold sparkle trail — mouse on desktop, touch on mobile */}
+      <MouseTrail />
     </>
   );
 }

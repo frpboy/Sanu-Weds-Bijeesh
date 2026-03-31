@@ -20,32 +20,37 @@ export default function MusicToggle() {
         .then(() => {
           started = true;
           setPlaying(true);
-          document.removeEventListener("click", tryPlay);
-          document.removeEventListener("touchstart", tryPlay);
-          document.removeEventListener("touchend", tryPlay);
-          document.removeEventListener("keydown", tryPlay);
+          cleanup();
         })
         .catch(() => {
-          // Still blocked — keep listeners alive and retry on next interaction
+          // Still blocked — keep listeners alive, retry on next interaction
         });
     }
 
-    // Attempt immediately (works on desktop or permissive browsers)
+    function cleanup() {
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("touchend", tryPlay);
+      document.removeEventListener("keydown", tryPlay);
+    }
+
+    // Expose a direct handle so other components (e.g. SaveTheDateModal)
+    // can call audio.play() from within their own gesture handler — this
+    // keeps the user-gesture trust chain intact on Android Chrome.
+    (window as Window & { __startMusic?: () => void }).__startMusic = tryPlay;
+
+    // Attempt immediately (works on desktop / permissive browsers)
     tryPlay();
 
-    // Keep retrying on every interaction until it starts — needed for iOS Safari
+    // Fallback: retry on every subsequent interaction
     document.addEventListener("click", tryPlay);
-    document.addEventListener("touchstart", tryPlay);
     document.addEventListener("touchend", tryPlay);
     document.addEventListener("keydown", tryPlay);
 
     return () => {
       audio.pause();
       audio.src = "";
-      document.removeEventListener("click", tryPlay);
-      document.removeEventListener("touchstart", tryPlay);
-      document.removeEventListener("touchend", tryPlay);
-      document.removeEventListener("keydown", tryPlay);
+      cleanup();
+      delete (window as Window & { __startMusic?: () => void }).__startMusic;
     };
   }, []);
 
