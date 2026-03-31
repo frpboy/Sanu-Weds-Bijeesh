@@ -4,46 +4,49 @@ import { useState, useEffect, useRef } from "react";
 export default function MusicToggle() {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // Shared flag — readable by both the gesture listeners AND the toggle button
+  const startedRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio("/music.mp3");
     audio.loop = true;
     audio.volume = 0.4;
+    audio.preload = "auto"; // start buffering immediately so it's ready on first touch
     audioRef.current = audio;
 
-    let started = false;
+    function cleanup() {
+      document.removeEventListener("touchstart", tryPlay);
+      document.removeEventListener("touchend", tryPlay);
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("keydown", tryPlay);
+    }
 
     function tryPlay() {
-      if (started) return;
+      if (startedRef.current) return;
       audio
         .play()
         .then(() => {
-          started = true;
+          startedRef.current = true;
           setPlaying(true);
           cleanup();
         })
         .catch(() => {
-          // Still blocked — keep listeners alive, retry on next interaction
+          // Browser still blocking — keep listeners, retry on next gesture
         });
     }
 
-    function cleanup() {
-      document.removeEventListener("click", tryPlay);
-      document.removeEventListener("touchend", tryPlay);
-      document.removeEventListener("keydown", tryPlay);
-    }
-
-    // Expose a direct handle so other components (e.g. SaveTheDateModal)
-    // can call audio.play() from within their own gesture handler — this
-    // keeps the user-gesture trust chain intact on Android Chrome.
+    // Expose for SaveTheDateModal to call directly inside its gesture handler
     (window as Window & { __startMusic?: () => void }).__startMusic = tryPlay;
 
-    // Attempt immediately (works on desktop / permissive browsers)
+    // Try immediately (works on desktop / browsers without strict autoplay)
     tryPlay();
 
-    // Fallback: retry on every subsequent interaction
+    // Retry on every interaction until it sticks — covers returning visitors
+    // who've already dismissed the modal. Both touchstart + touchend for
+    // maximum Android Chrome compatibility.
+    document.addEventListener("touchstart", tryPlay, { passive: true });
+    document.addEventListener("touchend", tryPlay, { passive: true });
     document.addEventListener("click", tryPlay);
-    document.addEventListener("touchend", tryPlay);
     document.addEventListener("keydown", tryPlay);
 
     return () => {
@@ -59,10 +62,14 @@ export default function MusicToggle() {
     if (!audio) return;
     if (playing) {
       audio.pause();
+      setPlaying(false);
     } else {
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        // Mark as started so the document listeners don't re-fire
+        startedRef.current = true;
+        setPlaying(true);
+      }).catch(() => {});
     }
-    setPlaying((p) => !p);
   };
 
   return (
