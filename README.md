@@ -1,56 +1,146 @@
-# 💫 Sanu Weds Bijeesh - Project Eternal Scroll
+# Sanu Weds Bijeesh
 
-> *A cinematic wedding tribute for Sanu & Bijeesh — An immersive, 3D celestial journey that transcends traditional wedding websites.*
+> A cinematic, interactive wedding website for the union of Sanu & Bijeesh — April 8th, 2026, Mannarmala, Kerala.
 
----
-
-## 🌟 About This Project
-
-This is a beautifully crafted digital wedding invitation created with love and turned into a stunning web experience. What started as a fun project for a friend's wedding has evolved into an immersive, interactive website celebrating the union of two families.
-
-### The Story
-Sanu and Bijeesh are coming together through an arranged marriage on **April 8th, 2026**, following their engagement in **April 2025**. This website transforms their journey into an interactive cinematic experience that guests can explore before the big day.
+Live: **[sanu-weds-bijeesh.vercel.app](https://sanu-weds-bijeesh.vercel.app)**
 
 ---
 
-## ✨ Key Features
+## About
 
-### 🌌 **The Star Tunnel** 
-A dynamic 3D starfield that responds to user scroll, creating a "Warp Speed" effect. The background seamlessly transitions as you journey through the experience.
-
-### 🎬 **Horizontal Storytelling**
-A 500vw-wide horizontal timeline ("Film Strip") using GSAP ScrollTrigger that presents the couple's story as a cinematic journey with glassmorphism memory cards and parallax effects.
-
-### 🎆 **Interactive Nebula**
-The climax of the experience features a swirling 3D nebula that explodes into gold heart particles when you interact with it—a truly magical moment.
-
-### 🎙️ **Audio & Entry Gate**
-A full-screen interactive entry point with cinematic soundtrack integration. Users must interact to unlock the experience and begin their journey.
-
-### 💝 **Send Blessings**
-A concluding tribute section where guests can send their wishes with a personal message and interactive "Send Blessings" button featuring confetti animation and WhatsApp integration.
+A fully custom digital wedding invitation built with Next.js. The experience guides guests through the couple's story, event details, and RSVP — wrapped in a dark, gold-accented aesthetic with ambient music, particle effects, and smooth scroll animations.
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-| Layer | Technology | Why? |
-|:------|:-----------|:-----|
-| **Framework** | **Next.js 15 (App Router)** | Best-in-class performance, SEO, and image optimization |
-| **3D Engine** | **React Three Fiber (R3F) + Drei** | Modern, declarative way to handle Three.js in React |
-| **3D Helpers** | **@react-three/drei** | Essential shortcuts for 3D text, environments, and loaders |
-| **Animation** | **GSAP + ScrollTrigger** | Syncs the 3D world with user scroll perfectly |
-| **Post-Processing** | **@react-three/postprocessing** | Cinematic Bloom, Depth of Field, and Vignette effects |
-| **Styling** | **Tailwind CSS** | Rapid UI development for elegant overlays |
-| **Audio** | **Howler.js** | Reliable audio management for cinematic soundtrack |
-| **Interaction** | **Framer Motion + Canvas-Confetti** | Smooth UI transitions and celebratory particles |
-| **Database** | **Neon (Serverless Postgres)** | For storing guest wishes and interactions |
+### Live Event Phases (Hero)
+The hero section adapts in real time based on the current date and time (IST):
+
+| Time | Display |
+|------|---------|
+| Before April 8, 10:30 AM | "Save the Date" + countdown timer |
+| 10:30 – 11:30 AM | Live badge · "The Ceremony is Happening Now" · Immu Auditorium |
+| 11:30 AM – 4:30 PM | "Just Married!" + countdown to reception |
+| 4:30 – 7:30 PM | Live badge · "Reception is Happening Now" · River View Auditorium |
+| After 7:30 PM | Romantic post-wedding quote |
+
+### Photo Reveal
+A countdown-gated photo reveal that unlocks after the wedding ceremony. Displays the couple's photos with a cinematic animation once the moment arrives.
+
+### Our Journey
+A horizontal scroll timeline presenting the couple's story as a series of memory cards with glassmorphism styling and scroll-triggered animations.
+
+### Events
+Detailed cards for both events with venue, time, map embed, and calendar integration (`.ics` download + Google Calendar link):
+- **Wedding Ceremony** — Immu Auditorium, Mannarmala, Kerala · 10:30 AM – 11:30 AM IST
+- **Wedding Reception** — River View Auditorium, Nattyamangalam, Kerala · 4:30 PM – 7:30 PM IST
+
+### Photo Gallery / Carousel
+An auto-playing carousel of couple photos with blur placeholder support via `next/image`.
+
+### RSVP & Wishes
+Guests can RSVP (attending / regretfully declining), set headcount, and leave a message. Submissions are stored in a Neon Postgres database and displayed live in a scrolling wall of wishes.
+
+### Ambient Touches
+- **3D star-field background** (Three.js) with depth and parallax
+- **Mouse trail** particle effect
+- **Ambient music** with a toggle control
+- **Confetti** on wish submission
+- **Scroll-to-top** button
+- **Save the Date modal** on first load
+- **MS Clarity** analytics + **Vercel Analytics**
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router), React 19 |
+| 3D | Three.js (direct) |
+| Database | Neon Serverless Postgres (`@neondatabase/serverless`) |
+| Analytics | Vercel Analytics, Microsoft Clarity |
+| Confetti | canvas-confetti |
+| Images | next/image + sharp |
+| Styling | CSS Modules / global CSS, Tailwind CSS |
+| Fonts | Google Fonts — Montserrat, Cinzel, Great Vibes (via `next/font`) |
+| Icons | Font Awesome 6 (CDN) |
+| Deployment | Vercel |
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- **Node.js** 18+ (preferably 20 LTS)
-- **npm**, **yarn**, **pnpm**, or **bun** as your package manager
+- Node.js 20+ LTS
+- A [Neon](https://neon.tech) Postgres database
 
+### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+DATABASE_URL=postgresql://...   # Neon connection string
+```
+
+### Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Build
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## Project Structure
+
+```
+src/
+  app/
+    api/
+      og/          OG image generation
+      time/        Server time endpoint
+      wishes/      RSVP & wishes API (GET + POST)
+    globals.css
+    layout.tsx
+    page.tsx
+  components/
+    Countdown.tsx         Pre-wedding countdown timer
+    Events.tsx            Ceremony & reception event cards
+    Footer.tsx
+    Gallery.tsx
+    Hero.tsx              Live phase-aware hero section
+    Journey.tsx           Horizontal scroll timeline
+    MouseTrail.tsx        Cursor particle trail
+    MusicToggle.tsx       Ambient music control
+    PhotoCarousel.tsx     Auto-playing photo carousel
+    PhotoReveal.tsx       Post-ceremony photo unlock
+    SaveTheDateModal.tsx  First-load modal
+    ScrollAnimations.tsx  Intersection observer animations
+    ScrollToTop.tsx
+    ThreeBackground.tsx   Three.js star-field
+    Wishes.tsx            RSVP form + wishes wall
+  lib/
+    db.ts                 Neon database client
+public/
+  wedding.mp3            Ambient music
+  *.ics                  Calendar invite files
+```
+
+---
+
+## Deployment
+
+Deployed on Vercel. Push to `main` triggers an automatic production deploy.
+
+Required environment variable in Vercel dashboard: `DATABASE_URL`.
