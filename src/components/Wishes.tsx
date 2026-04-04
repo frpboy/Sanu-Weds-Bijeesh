@@ -167,7 +167,7 @@ export default function Wishes() {
               <div className="rsvp-summary">
                 <i className="fas fa-users" />
                 <span>
-                  <strong>{attending.length}</strong> {attending.length === 1 ? "person" : "people"} attending
+                  <strong>{attending.length}</strong>{" "}{attending.length === 1 ? "person" : "people"}{" "}attending
                   &nbsp;&middot;&nbsp;
                   <strong>{guests}</strong> total {guests === 1 ? "guest" : "guests"}
                 </span>

@@ -12,17 +12,12 @@ export default function Countdown() {
     minutes: "00",
     seconds: "00",
   });
-  const [expired, setExpired] = useState(false);
-
   useEffect(() => {
     setIsClient(true);
 
     const tick = () => {
       const diff = WEDDING_DATE - Date.now();
-      if (diff <= 0) {
-        setExpired(true);
-        return;
-      }
+      if (diff <= 0) return;
       setTimeLeft({
         days: Math.floor(diff / 86400000)
           .toString()
@@ -45,14 +40,6 @@ export default function Countdown() {
   }, []);
 
   if (!isClient) return null;
-
-  if (expired) {
-    return (
-      <h3 style={{ color: "var(--primary-color)", fontFamily: "var(--font-cinzel)" }}>
-        Just Married! 🎉
-      </h3>
-    );
-  }
 
   return (
     <div className="countdown">
