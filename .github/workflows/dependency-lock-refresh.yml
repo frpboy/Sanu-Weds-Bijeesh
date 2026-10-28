@@ -22,8 +22,11 @@ jobs:
       - name: Apply compatible npm security fixes and refresh npm lockfile
         if: hashFiles('package-lock.json') != ''
         run: |
-          npm audit fix --package-lock-only --ignore-scripts --no-fund || true
-          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          rm -f package-lock.json
+          npm install --package-lock-only --lockfile-version=3 --ignore-scripts --no-audit --no-fund
+          npm audit fix --package-lock-only --lockfile-version=3 --ignore-scripts --no-fund || true
+          npm update --package-lock-only --lockfile-version=3 --ignore-scripts --no-fund
+          npm install --package-lock-only --lockfile-version=3 --ignore-scripts --no-audit --no-fund
       - name: Apply compatible pnpm security fixes and refresh pnpm lockfile
         if: hashFiles('pnpm-lock.yaml') != ''
         run: |
